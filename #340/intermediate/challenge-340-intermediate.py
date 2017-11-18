@@ -31,14 +31,19 @@ if movement[0] == "I":
             elif step == "O":
                 last_location = current_location
                 current_location = [current_location[0], current_location[1] - 1]
-                
-        if minefield[current_location[0]][current_location[1]] == "+":
-            current_location = last_location
-        elif minefield[current_location[0]][current_location[1]] == "*":
-            print("You exploded!")
-            break
 
-        if current_location == [1, 10]:
+        try:        
+            if minefield[current_location[0]][current_location[1]] == "+":
+                current_location = last_location
+            elif minefield[current_location[0]][current_location[1]] == " ":
+                current_location = last_location
+            elif minefield[current_location[0]][current_location[1]] == "*":
+                print("You exploded!")
+                break
+        except IndexError:
+            current_location = last_location
+
+        if current_location == [1, 11]:
             if step == "-":
                 print("Robot shut off at exit, success!")
                 win = True
